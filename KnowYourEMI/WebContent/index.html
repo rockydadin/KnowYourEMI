@@ -2,9 +2,25 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title> Know your EMI </title>
+<style>
+table, th, td {
+    border: 1px solid black;
+    text-align: right
+}
+fieldset { 
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 1.8em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+}
+</style>
 </head>
-<body>
+<body style="background-color:#D6EAF8;">
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -16,13 +32,22 @@
     	
         $("#emireqbutton").click(function(e){
                 dataString = $("#emi").serialize();
+                e.preventDefault();
                 $.ajax({
                 	type:'POST',
                 	url:'EMI',
                     data: dataString,
                     dataType: 'json',
                     success: function(data) {
-                       document.write(data);
+                       $("#emiData").empty();  // This is to clear the data in the body
+                       data.forEach(function(d){
+                    	   var tag = "<tr>"
+                    	   var dataTag = ""
+                    	   for(var i=0;i<d.length;i++){
+                    		   dataTag = dataTag + "<td>"+d[i]+"</td>"
+                    	   }
+                    	   $("#emiData").append(tag+dataTag+"</tr>")
+                       });
                     }
                 });
             });
@@ -34,15 +59,30 @@
   <fieldset>
     <legend>EMI Calculation Input:</legend><br>
     Principal:
-    <input type="text" name="prin" autofocus>
+    <input type="text" name="prin" autofocus> &nbsp;&nbsp;
     Rate:
-    <input type="text" name="rate">
+    <input type="text" name="rate">&nbsp;&nbsp;
     Months:
-    <input type="text" name="month">
+    <input type="text" name="month">&nbsp;&nbsp;
     <input id="emireqbutton" type="button" value="Submit">
   </fieldset>
 </form>
-
+<br>
+<table id="emiDetails">
+<thead>
+ <tr>
+ 	<th>Month</th>
+ 	<th>Opening Balance</th>
+ 	<th>Interest Paid</th>
+ 	<th>Principal Paid</th>
+ 	<th>Net Overdue</th>
+ 	<th>EMI</th>
+ 	<th>Closing Balance</th>
+ </tr>
+ </thead>
+ <tbody id="emiData">
+ </tbody>
+</table>
 <p></p>
 
 
