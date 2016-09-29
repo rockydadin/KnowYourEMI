@@ -12,7 +12,12 @@
   
   <servlet>
   <servlet-name>EMIServlet</servlet-name>
-  <servlet-class>com.ramanuj.emi.EMIServlet</servlet-class>
+  <servlet-class>com.ramanuj.emi.view.EMIServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  <servlet-name>ExcelServlet</servlet-name>
+  <servlet-class>com.ramanuj.emi.excel.ExcelServlet</servlet-class>
   </servlet>
   
  <servlet-mapping>
@@ -20,4 +25,11 @@
 <url-pattern>/EMI</url-pattern>
 </servlet-mapping>
 
+ 
+  <servlet-mapping>
+<servlet-name>ExcelServlet</servlet-name>
+<url-pattern>/EMIEXCEL</url-pattern>
+</servlet-mapping>
+ 
+ 
 </web-app>

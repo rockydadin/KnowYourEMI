@@ -1,5 +1,5 @@
 
-package com.ramanuj.emi;
+package com.ramanuj.emi.view;
 
 import java.io.IOException;
 

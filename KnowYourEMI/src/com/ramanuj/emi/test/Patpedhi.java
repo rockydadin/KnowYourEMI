@@ -1,4 +1,6 @@
-package com.ramanuj.emi;
+package com.ramanuj.emi.test;
+
+import com.ramanuj.emi.view.EMIProcessor;
 
 public class Patpedhi{
 public static void main(String [] args){

@@ -36,10 +36,23 @@
                     }
                 });
             });
+        
+        $("#emiexcelbutton").click(function(e){
+            dataString = $("#emi").serialize();
+            e.preventDefault();
+            $.ajax({
+            	type:'POST',
+            	url:'EMIEXCEL',
+                data: dataString,
+                dataType: 'json',
+                success: function(data) {
+                	console.log(data.text());
+                }
+            });
+        });
     });
 </script>
 
-<main>
 
 <form id="emi">
   <fieldset>
@@ -50,10 +63,12 @@
     <input type="text" name="rate">
     Months:
     <input type="text" name="month">
-    <input id="emireqbutton" class="button" type="button" value="Submit">
+    <input id="emireqbutton" class="button" type="button" value="View Table">
+    <input id="emiexcelbutton" class="button" type="button" value="Download as Excel">
   </fieldset>
 </form>
 <br>
+
 <table id="emiDetails">
 <thead>
  <tr>
@@ -70,6 +85,5 @@
  </tbody>
 </table>
 
-</main>
 </body>
 </html>

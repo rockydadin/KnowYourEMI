@@ -1,4 +1,4 @@
-package com.ramanuj.emi;
+package com.ramanuj.utilities;
 
 public class Calc{
 
