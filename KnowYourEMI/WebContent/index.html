@@ -3,24 +3,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title> Know your EMI </title>
-<style>
-table, th, td {
-    border: 1px solid black;
-    text-align: right
-}
-fieldset { 
-    display: block;
-    margin-left: 2px;
-    margin-right: 2px;
-    padding-top: 0.35em;
-    padding-bottom: 1.8em;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
-    border: 2px groove (internal value);
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
-<body style="background-color:#D6EAF8;">
+<body>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -54,17 +39,18 @@ fieldset {
     });
 </script>
 
+<main>
 
 <form id="emi">
   <fieldset>
     <legend>EMI Calculation Input:</legend><br>
     Principal:
-    <input type="text" name="prin" autofocus> &nbsp;&nbsp;
+    <input type="text" name="prin" autofocus>
     Rate:
-    <input type="text" name="rate">&nbsp;&nbsp;
+    <input type="text" name="rate">
     Months:
-    <input type="text" name="month">&nbsp;&nbsp;
-    <input id="emireqbutton" type="button" value="Submit">
+    <input type="text" name="month">
+    <input id="emireqbutton" class="button" type="button" value="Submit">
   </fieldset>
 </form>
 <br>
@@ -83,8 +69,7 @@ fieldset {
  <tbody id="emiData">
  </tbody>
 </table>
-<p></p>
 
-
+</main>
 </body>
 </html>
