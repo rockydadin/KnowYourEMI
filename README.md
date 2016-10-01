@@ -1,6 +1,7 @@
 # KnowYourEMI
 
-https://api.travis-ci.org/ramanujd/KnowYourEMI.svg?branch=master
+![alt tag](https://api.travis-ci.org/ramanujd/KnowYourEMI.svg?branch=master)
+
 
 Objective: A guide to personal finance decision making tools and utilities. Calculation utilities package have all reusable code that can be used in any related project.
 
