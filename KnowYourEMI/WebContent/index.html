@@ -44,9 +44,10 @@
             	type:'POST',
             	url:'EMIEXCEL',
                 data: dataString,
-                dataType: 'json',
+                dataType: 'text',
                 success: function(data) {
-                	console.log(data.text());
+                	$("a[href='http://www.google.com/']").attr('href',data);
+                	console.log(data);
                 }
             });
         });
@@ -64,7 +65,8 @@
     Months:
     <input type="text" name="month">
     <input id="emireqbutton" class="button" type="button" value="View Table">
-    <input id="emiexcelbutton" class="button" type="button" value="Download as Excel">
+    <a href="http://www.google.com/" download><input id="emiexcelbutton" class="button" type="button" value="Download as Excel"></a>
+    
   </fieldset>
 </form>
 <br>

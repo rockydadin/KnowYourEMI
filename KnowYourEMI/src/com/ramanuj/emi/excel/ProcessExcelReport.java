@@ -35,7 +35,7 @@ public class ProcessExcelReport {
 		String filePath = prop.getProperty("filepath");
 		Boolean checkExcel = wb.mkXlsx("AmortizationSchedule", filePath, headerLine, table);
 		if (checkExcel) {
-			return filePath;
+			return filePath+"\\AmortizationSchedule.xlsx";
 		} else {
 			return "ERROR";
 		}

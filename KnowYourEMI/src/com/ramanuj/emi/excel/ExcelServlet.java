@@ -31,7 +31,7 @@ public class ExcelServlet extends HttpServlet {
 		ArrayList<ArrayList<String>> table = e.getpayment(prin, rate, month);
 		ProcessExcelReport per = new ProcessExcelReport();
 		String json = per.getExcelPath(table);
-		resp.setContentType("application/json");
+		resp.setContentType("text/plain");
 		resp.setCharacterEncoding("UTF-8");
 		System.out.println(json);
 		resp.getWriter().write(json);
