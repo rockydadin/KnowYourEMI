@@ -28,7 +28,7 @@
         <artifactId>heroku-maven-plugin</artifactId>
         <version>1.1.1</version>
 		<configuration>
-        <appName>${heroku.knowyouremi}</appName>
+        <appName>knowyouremi</appName>
       </configuration>
       </plugin>
 	  	   <plugin>

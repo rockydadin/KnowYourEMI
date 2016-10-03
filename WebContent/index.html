@@ -42,11 +42,11 @@
             e.preventDefault();
             $.ajax({
             	type:'POST',
-            	url:'EMIEXCEL',
+            	url:'/EMIEXCEL',
                 data: dataString,
-                dataType: 'text',
+                dataType: 'json',
                 success: function(data) {
-                	$("a[href='http://www.google.com/']").attr('href',data);
+                	window.location.href = data;
                 	console.log(data);
                 }
             });

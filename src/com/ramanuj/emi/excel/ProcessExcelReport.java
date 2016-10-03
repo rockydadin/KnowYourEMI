@@ -23,7 +23,7 @@ public class ProcessExcelReport {
 	
 	private void loadProperties() throws IOException {
 		prop = new Properties();
-		input = new FileInputStream("D:\\Users\\NIA\\Documents\\GitHub\\KnowYourEMI\\KnowYourEMI\\config.properties");
+		input = new FileInputStream("D:\\Users\\NIA\\Documents\\GitHub\\KnowYourEMI\\config.properties");
 		prop.load(input);
 	}
 
