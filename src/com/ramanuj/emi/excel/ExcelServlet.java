@@ -29,40 +29,19 @@ public class ExcelServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String path2 = "";
 		Double prin = Double.parseDouble(req.getParameter("prin"));		
 		Double rate =Double.parseDouble(req.getParameter("rate"));
 		Integer month =Integer.parseInt(req.getParameter("month"));
 		EMIExcelProcessor e = new EMIExcelProcessor();
 		ArrayList<ArrayList<String>> table = e.getpayment(prin, rate, month);
-		
-		
-		
 		WorkbookBuilder wb = new WorkbookBuilder();
 		String headerLine[] = { "Month", "Opening Balance", "Interest Paid", "Principal Paid", "Net Overdue", "EMI",
 				"Closing Balance" };
-		String filePath = req.getServletPath().toString();
+		String filePath = req.getServletContext().getRealPath("/");
 		System.out.println(filePath);
-		
-		String pattern = Pattern.quote(System.getProperty("file.separator"));
-		String[] splittedFileName = filePath.split(pattern);
-		String resultFolder = splittedFileName[0];
-		
-		File resultFolderOnFileSystem = new File(filePath);
-		if (!(resultFolderOnFileSystem.exists())) {
-			resultFolderOnFileSystem.mkdir();
-			System.out.println("Folder Created: " + resultFolder);
-		}
-		
-		Boolean checkExcel = wb.mkXlsx("AmortizationSchedule", filePath, headerLine, table);
-		if (checkExcel) {
-			path2 = filePath+"/AmortizationSchedule.xlsx";
-		} else {
-			path2 = "ERROR";
-		}
-		
+		String checkExcel = wb.mkXlsx("AmortizationSchedule", filePath, headerLine, table);
 		Gson gson = new Gson();
-		String jsonotion = gson.toJson(path2);
+		String jsonotion = gson.toJson(checkExcel);
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 		System.out.println(jsonotion);

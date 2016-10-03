@@ -1,6 +1,7 @@
 package com.ramanuj.utilities;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,8 +20,10 @@ public class WorkbookBuilder {
 
 	private SXSSFWorkbook workbook;
 
-	public Boolean mkXlsx(String workbookName, String filepath,
+	public String mkXlsx(String workbookName, String filepath,
 			String[] headerString, ArrayList<ArrayList<String>> table) {
+		
+		File finalfile=null;
 
 		try {
 			workbook = new SXSSFWorkbook(100);
@@ -117,10 +120,11 @@ public class WorkbookBuilder {
 			*/
 
 			FileOutputStream out;
-			String compliantPath = filepath + "\\" + workbookName + ".xlsx";
+			File outputFile = new File(filepath);
+			finalfile = new File(outputFile.getAbsolutePath()+File.separator+ workbookName + ".xlsx");
 			
 			try{
-			out = new FileOutputStream(compliantPath);
+			out = new FileOutputStream(finalfile);
 			workbook.write(out);
 			out.close();
 			workbook.dispose();
@@ -133,7 +137,7 @@ public class WorkbookBuilder {
 			e.printStackTrace();
 		}
 
-		return true;
+		return finalfile.getAbsolutePath();
 
 	}
 

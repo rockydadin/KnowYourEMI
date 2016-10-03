@@ -28,7 +28,7 @@
  
   <servlet-mapping>
 <servlet-name>ExcelServlet</servlet-name>
-<url-pattern>/EMIEXCEL</url-pattern>
+<url-pattern>/lib</url-pattern>
 </servlet-mapping>
  
  
