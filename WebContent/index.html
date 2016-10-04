@@ -36,21 +36,18 @@
                     }
                 });
             });
-        
         $("#emiexcelbutton").click(function(e){
             dataString = $("#emi").serialize();
             e.preventDefault();
             $.ajax({
             	type:'POST',
-            	url:'/lib',
-                data: dataString,
+            	url:'lib',
+            	data: dataString,
                 dataType: 'json',
-                success: function(data) {
-                	window.location.href = data;
-                	console.log(data);
-                }
+                
             });
         });
+       
     });
 </script>
 
@@ -65,7 +62,7 @@
     Months:
     <input type="text" name="month">
     <input id="emireqbutton" class="button" type="button" value="View Table">
-    <a href="http://www.google.com/" download><input id="emiexcelbutton" class="button" type="button" value="Download as Excel"></a>
+    <input id="emiexcelbutton" class="button" type="button" value="Download as Excel">
     
   </fieldset>
 </form>

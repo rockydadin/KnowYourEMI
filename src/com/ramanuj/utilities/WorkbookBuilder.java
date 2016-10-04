@@ -1,11 +1,15 @@
 package com.ramanuj.utilities;
 
 import java.awt.Color;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -16,15 +20,17 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
+
 public class WorkbookBuilder {
 
 	private SXSSFWorkbook workbook;
 
-	public String mkXlsx(String workbookName, String filepath,
-			String[] headerString, ArrayList<ArrayList<String>> table) {
+	public InputStream mkXlsx(String workbookName, String[] headerString, ArrayList<ArrayList<String>> table) {
+		InputStream in=null;
+		Path workbookpath = null;
 		
-		File finalfile=null;
-
 		try {
 			workbook = new SXSSFWorkbook(100);
 			Sheet sheet = workbook.createSheet();
@@ -32,8 +38,7 @@ public class WorkbookBuilder {
 
 			/* Header Style- Start */
 
-			XSSFCellStyle headerStyle = (XSSFCellStyle) workbook
-					.createCellStyle();
+			XSSFCellStyle headerStyle = (XSSFCellStyle) workbook.createCellStyle();
 			XSSFFont headerLineFont = (XSSFFont) workbook.createFont();
 			/*
 			 * below lines to change font
@@ -58,8 +63,7 @@ public class WorkbookBuilder {
 
 			/* Table Style- Start */
 
-			XSSFCellStyle tableStyle = (XSSFCellStyle) workbook
-					.createCellStyle();
+			XSSFCellStyle tableStyle = (XSSFCellStyle) workbook.createCellStyle();
 			tableStyle.setBorderBottom((short) 1);
 			tableStyle.setBorderTop((short) 1);
 			tableStyle.setBorderRight((short) 1);
@@ -111,34 +115,36 @@ public class WorkbookBuilder {
 
 			}
 
-			/*CellRangeAddress cra = new CellRangeAddress(0, rownum - 1, 0,
-					headerString.length - 1);
-			sheet.setAutoFilter(cra);
-			
-			String timeNow = DateFormatUtils.format(new Date().getTime(),"dd-MM-yyyy HH-mm-ss");
-			timeNow = "_" + timeNow;
-			*/
+			FileSystem fs = Jimfs.newFileSystem(Configuration.unix());
+			Path emi = fs.getPath("/emi");
+			Files.createDirectory(emi);
+			workbookpath = emi.resolve(workbookName + ".xlsx");
 
-			FileOutputStream out;
-			File outputFile = new File(filepath);
-			finalfile = new File(outputFile.getAbsolutePath()+File.separator+ workbookName + ".xlsx");
-			
-			try{
-			out = new FileOutputStream(finalfile);
-			workbook.write(out);
-			out.close();
-			workbook.dispose();
+			Path filepath = Files.createFile(workbookpath);
+			OutputStream out = Files.newOutputStream(filepath, StandardOpenOption.WRITE);
+			System.out.println("Folder path " + emi.toString());
+			System.out.println(workbookpath.getFileName().toString());
+
+			try {
+
+				workbook.write(out);
+				out.close();
+				workbook.dispose();
+				in = Files.newInputStream(filepath, StandardOpenOption.READ);	
+			} catch (FileNotFoundException f) {
+				f.printStackTrace();
+				System.err.println("Check file path : - Refer file system documents.");
 			}
-			catch(FileNotFoundException f){
-				System.err.println("Check file path : - If you are running on windows Server. change file-path in config.properties file.");
-			}
-			
-		} catch (IOException e) {
+
+		}
+	
+
+		catch(Exception e){
 			e.printStackTrace();
 		}
+		
+			System.out.println(workbookpath.toUri().toString());
+			return in;
+			
 
-		return finalfile.getAbsolutePath();
-
-	}
-
-}
+}}
